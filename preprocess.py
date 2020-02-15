@@ -80,8 +80,10 @@ if __name__ == '__main__':
     arr = os.listdir('.')
     for filepath in arr:
         if _should_proceed(filepath):
+            print "start: " + filepath
             image = Image.open(filepath)
             image = _rotate(image)
             image = _shrink(image)
             _watermark(image)
             image.save("../z_" + filepath)
+            print "saved: ../z_" + filepath
