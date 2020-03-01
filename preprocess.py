@@ -3,6 +3,12 @@ from PIL import ExifTags
 from PIL import ImageDraw
 from PIL import ImageFont
 import os
+import argparse
+
+parser = argparse.ArgumentParser(description='Arguments for pre processor.')
+parser.add_argument("--t", default="zpjiang.me", help="Default value for water mark.")
+parser.add_argument("--w", type=int, default=130, help="The num of pixels for the water mark.")
+args = parser.parse_args()
 
 # The base width of images.
 BASE_WIDTH = 1024
@@ -59,7 +65,7 @@ def _shrink(image):
 
 
 # Adds watermark.
-def _watermark(image):
+def _watermark(image, text='zpjiang.me', w=130):
     if not image:
         return
 
@@ -69,11 +75,11 @@ def _watermark(image):
     # find the position
     width = image.size[0]
     height = image.size[1]
-    pos = (width - 130, height - 35)
+    pos = (width - w, height - 35)
 
     white = (255, 255, 255)
     font = ImageFont.truetype("Courier New Bold Italic.ttf", 20)
-    drawing.text(pos, WATERMARK, fill=white, font=font)
+    drawing.text(pos, text, fill=white, font=font)
 
 
 if __name__ == '__main__':
@@ -84,6 +90,6 @@ if __name__ == '__main__':
             image = Image.open(filepath)
             image = _rotate(image)
             image = _shrink(image)
-            _watermark(image)
+            _watermark(image, args.t, args.w)
             image.save("../z_" + filepath)
             print "saved: ../z_" + filepath
