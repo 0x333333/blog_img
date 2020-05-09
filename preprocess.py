@@ -78,7 +78,7 @@ def _watermark(image, text='zpjiang.me', w=130):
     pos = (width - w, height - 35)
 
     white = (255, 255, 255)
-    font = ImageFont.truetype("Courier New Bold Italic.ttf", 20)
+    font = ImageFont.truetype("arial.ttf", 20)
     drawing.text(pos, text, fill=white, font=font)
 
 
@@ -86,10 +86,10 @@ if __name__ == '__main__':
     arr = os.listdir('.')
     for filepath in arr:
         if _should_proceed(filepath):
-            print "start: " + filepath
+            print ("start: " + filepath)
             image = Image.open(filepath)
             image = _rotate(image)
             image = _shrink(image)
             _watermark(image, args.t, args.w)
             image.save("../z_" + filepath)
-            print "saved: ../z_" + filepath
+            print ("saved: ../z_" + filepath)
