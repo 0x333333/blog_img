@@ -78,7 +78,7 @@ def _watermark(image, text='zpjiang.me', w=130):
     pos = (width - w, height - 35)
 
     white = (255, 255, 255)
-    font = ImageFont.truetype("arial.ttf", 20)
+    font = ImageFont.truetype("Arial.ttf", 20)
     drawing.text(pos, text, fill=white, font=font)
 
 
